@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     public float speed;
     public GameObject bulletPrefab;
+    public float xLimit = 5f;
 
     void Start()
     {
@@ -26,7 +27,11 @@ public class PlayerController : MonoBehaviour
         float xMove = Input.GetAxisRaw("Horizontal");
         float xMovement = xMove * speed * Time.deltaTime;
 
-        transform.Translate(xMovement, 0, 0);
+        
+        if ((transform.position.x <= xLimit && xMovement > 0) || (transform.position.x >= -xLimit && xMovement < 0))
+        {
+            transform.Translate(xMovement, 0, 0);
+        }
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
